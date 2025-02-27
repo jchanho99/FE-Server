@@ -1,0 +1,172 @@
+/* src/style/SecondPage.css */
+
+/* 첫 페이지와 동일한 헤더 스타일 (복사/붙여넣기 or @import Main.css) */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+  }
+  
+  .main-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  
+  /* 헤더 바 */
+  .header-bar {
+    background-color: #d4c0e8;
+    padding: 10px;
+    text-align: left;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .menu-btn {
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* 메인 컨텐츠 래퍼 */
+  .content-wrapper {
+    display: flex;
+    padding: 40px 10%;
+    gap: 20px;
+  }
+  
+  /* 왼쪽 스텝 영역 */
+  .steps {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .step {
+    background-color: #F1EDED;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .step.active {
+    background-color: white;
+    border: 2px solid #d4c0e8;
+  }
+  
+  /* 오른쪽 메인 영역 */
+  .main-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  /* 카드 형태 */
+  .card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .next-btn {
+    background-color: #b79ced;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 10px;
+  }
+  
+  .next-btn:hover {
+    background-color: #a078c9;
+  }
+  
+  /* 아래 placeholder */
+  .placeholder {
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 10px;
+    color: gray;
+  }
+  
+  .input-box, .textarea-box {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  
+  .textarea-box {
+    height: 100px;
+    resize: none;
+  }
+
+  .fixed-text {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
+    background-color: #f3f3f3;
+    border-radius: 8px;
+  }
+
+  .step.inactive {
+    opacity: 0.5; /* 투명도 적용 */
+  }
+
+  /* 결과물 카드 전체에 대한 스타일(선택) */
+  .editor-card {
+    position: relative; 
+  }
+  
+  /* 결과물 카드 상단 영역 */
+  .editor-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .velog-icon {
+    width: 60px; /* 아이콘 크기를 키움 */
+    height: 60px;
+  }
+  
+  .publish-text {
+    font-weight: bold;
+    cursor: pointer; 
+    margin-left: 720px;
+    position: relative;   /* 가상 요소 배치를 위해 position: relative 필요 */
+    display: inline-block;/* 가상 요소가 텍스트 너비를 기준으로 움직이도록 inline-block 지정 */
+    transition: color 0.2s; /* 글자색 전환(선택사항) */
+  }
+  
+  /* 가상 요소: 처음엔 너비가 0% (숨겨진 상태) */
+  .publish-text::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;         /* 텍스트 바로 아래에 라인을 배치 */
+    width: 0;
+    height: 1px;          /* 선 두께 */
+    background: #000;      /* 선 색상 */
+    transition: width 0.3s ease;
+  }
+  
+  /* 호버 시 너비를 100%로 확장해 라인이 나타나는 애니메이션 구현 */
+  .publish-text:hover::after {
+    width: 100%;
+  }
+  .publish-text:hover {
+    color: #7b3fe4; /* 원하는 호버 색상 */
+  }
+  

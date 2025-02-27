@@ -1,6 +1,7 @@
 // src/pages/Main.jsx
 import { useState } from "react";
-import "../style/Main.css"; // 스타일 파일 (경로 맞춰 수정!)
+import { useNavigate } from "react-router-dom"; // 라우팅을 위한 import
+import "../style/Main.css"; // 스타일 파일
 
 const blogPlatforms = [
   { name: "GitHub", image: "/icons/github.png" },
@@ -14,6 +15,7 @@ const blogPlatforms = [
 const Main = () => {
   const [selectedPlatform, setSelectedPlatform] = useState(null);
   const [nickname, setNickname] = useState("");
+  const navigate = useNavigate(); // 페이지 이동을 위한 훅
 
   return (
     <div className="main-container">
@@ -22,7 +24,7 @@ const Main = () => {
         <button className="menu-btn">☰</button>
       </header>
 
-      {/* 제목 + 설명 (헤더 아래로 이동) */}
+      {/* 제목 + 설명 */}
       <section className="title-section">
         <h1 className="title">글또쓰</h1>
         <p className="description">
@@ -49,7 +51,6 @@ const Main = () => {
                   alt={platform.name}
                   className="blog-icon"
                 />
-                <span>{platform.name}</span>
               </button>
             ))}
           </div>
@@ -67,8 +68,10 @@ const Main = () => {
         </div>
       </div>
 
-      {/* 글 생성하기 버튼 (오른쪽 하단 고정) */}
-      <button className="submit-btn">글 또 쓰기 ▶</button>
+      {/* 글 생성하기 버튼 → 두 번째 페이지(/second)로 이동 */}
+      <button className="submit-btn" onClick={() => navigate("/second")}>
+        글 또 쓰기 ▶
+      </button>
     </div>
   );
 };
