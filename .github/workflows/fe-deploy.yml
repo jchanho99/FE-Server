@@ -24,8 +24,8 @@ jobs:
       - name: Deploy to Compute Engine
         run: |
           # 실제 GCE 인스턴스 SSH 접속
-          gcloud compute ssh instance-20250227-030445 \
-            --zone=asia-northeast3-a \
+          gcloud compute ssh instance-20250227-112552 \
+            --zone=asia-northeast3-b \
             --command="
               # 1) FE-Server 디렉토리로 이동 or 없으면 깃 클론
               cd FE-Server || git clone https://github.com/WriteAgain/FE-Server.git && cd FE-Server
