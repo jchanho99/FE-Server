@@ -32,6 +32,8 @@ jobs:
                 git clone https://github.com/WriteAgain/FE-Server.git;
               fi;
               cd FE-Server;
+              curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -;
+              sudo apt-get install -y nodejs;
               nvm install --lts;
               git pull origin main;
               npm install;
