@@ -23,7 +23,35 @@ const SecondPage = () => {
     setIsEditingTopic(true);
   };
 
-  const handleNextContent = () => {
+  const handleNextContent = async () => {
+    // API 호출: 사용자가 입력한 주제와 내용을 전송
+    const requestBody = {
+      title: inputValues.topic, // 사용자가 입력한 블로그 제목
+      memo: inputValues.content, // 사용자가 입력한 메모
+    };
+
+    try {
+      const response = await fetch("http://34.64.248.152:334/1/articles", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      if (!response.ok) {
+        throw new Error("API 요청 실패");
+      }
+
+      const data = await response.json();
+      // API 응답으로 온 데이터를 에디터 안에 넣어줍니다.
+      if (editorRef.current) {
+        editorRef.current.getInstance().setMarkdown(data.content);
+      }
+    } catch (error) {
+      console.error("Error posting article:", error);
+    }
+
     if (step < 3) setStep(step + 1);
     if (step === 2) setIsEditingContent(false);
   };
@@ -106,8 +134,6 @@ const SecondPage = () => {
               {/* 상단 헤더 */}
               <div className="editor-header">
                 <h3>결과물</h3>
-
-                {/* 아이콘과 텍스트를 각각 분리된 박스에 배치 */}
                 <div className="publish-text">📤 게시물 발행</div>
                 <div className="icon-box">
                   <img src="/icons/velog.png" alt="Velog Icon" className="velog-icon" />
