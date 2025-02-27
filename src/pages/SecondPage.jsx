@@ -143,7 +143,7 @@ const SecondPage = () => {
               <Editor
                 ref={editorRef}
                 previewStyle="vertical"
-                height="300px"
+                height="700px"
                 initialEditType="markdown"
                 useCommandShortcut={true}
                 initialValue=" "
