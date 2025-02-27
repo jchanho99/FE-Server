@@ -17,6 +17,32 @@ const Main = () => {
   const [nickname, setNickname] = useState("");
   const navigate = useNavigate(); // 페이지 이동을 위한 훅
 
+  const handleSubmit = async () => {
+    const requestBody = {
+      username: "inssg",
+      blogType: "velog",
+    };
+
+    try {
+      const response = await fetch("http://34.64.248.152:334/users/1/information", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
+      
+      if (!response.ok) {
+        throw new Error("API 요청 실패");
+      }
+      // API 호출이 성공하면 추가 작업을 수행할 수 있습니다.
+    } catch (error) {
+      console.error("Error posting API:", error);
+    }
+
+    navigate("/second");
+  };
+
   return (
     <div className="main-container">
       {/* 작아진 헤더 바 (보라색 영역) */}
@@ -68,8 +94,8 @@ const Main = () => {
         </div>
       </div>
 
-      {/* 글 생성하기 버튼 → 두 번째 페이지(/second)로 이동 */}
-      <button className="submit-btn" onClick={() => navigate("/second")}>
+      {/* 글 생성하기 버튼 → API 호출 후 두 번째 페이지(/second)로 이동 */}
+      <button className="submit-btn" onClick={handleSubmit}>
         글 또 쓰기 ▶
       </button>
     </div>
