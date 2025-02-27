@@ -1,0 +1,45 @@
+name: Deploy to Existing Compute Engine VM
+
+on:
+  push:
+    branches:
+      - main  # main 브랜치에 푸시될 때 실행
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+
+      - name: Deploy to Compute Engine
+        run: |
+          # 실제 GCE 인스턴스 SSH 접속
+          gcloud compute ssh instance-20250227-030445 \
+            --zone=asia-northeast3-a \
+            --command="
+              # 1) FE-Server 디렉토리로 이동 or 없으면 깃 클론
+              cd FE-Server || git clone https://github.com/WriteAgain/FE-Server.git && cd FE-Server
+
+              # 2) 최신 코드 가져오기
+              git pull origin main
+
+              # 3) React 프로젝트 빌드
+              npm install
+              npm run build
+
+              # 4) build 폴더를 서빙하기 위한 'serve' 패키지 설치 (없으면)
+              npm install -g serve
+
+              # 5) 백그라운드에서 실행 (이미 다른 프로세스가 있을 경우 종료/재실행 로직 필요)
+              nohup serve -s build -l 3000 &
+            "
